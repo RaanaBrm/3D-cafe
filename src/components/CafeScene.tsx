@@ -476,13 +476,192 @@ export default function CafeScene() {
         </group>
       </InteractiveObject>
 
+      {/* Second Round Table with Items */}
+      <InteractiveObject objectId="table2">
+        <group position={[1.5, 0.5, 2.5]}>
+          {/* Table Top */}
+          <Cylinder args={[0.9, 0.9, 0.05, 32]} position={[0, 0.7, 0]} castShadow receiveShadow>
+            <meshStandardMaterial
+              color={COLORS.DARK_BROWN}
+              roughness={0.7}
+              metalness={0.1}
+              emissive={hoveredObject === 'table2' ? COLORS.DARK_BROWN : '#000000'}
+              emissiveIntensity={0.2}
+              toneMapped={false}
+            />
+          </Cylinder>
+          {/* Table Leg */}
+          <Cylinder args={[0.08, 0.08, 0.7, 8]} position={[0, 0.35, 0]} castShadow receiveShadow>
+            <meshStandardMaterial
+              color={COLORS.DARK_BROWN}
+              roughness={0.7}
+              metalness={0.1}
+            />
+          </Cylinder>
+          {/* Base */}
+          <Cylinder args={[0.4, 0.4, 0.05, 16]} position={[0, 0, 0]} castShadow receiveShadow>
+            <meshStandardMaterial
+              color={COLORS.DARK_BROWN}
+              roughness={0.7}
+              metalness={0.1}
+            />
+          </Cylinder>
+          
+          {/* First White Cup */}
+          <group position={[0.3, 0.75, 0]}>
+            {/* Cup Body */}
+            <Cylinder args={[0.06, 0.04, 0.12, 16]} castShadow receiveShadow>
+              <meshStandardMaterial color={COLORS.WHITE} roughness={0.2} metalness={0.1} />
+            </Cylinder>
+            {/* Cup Handle */}
+            <group position={[0.06, 0, 0]} rotation={[0, -Math.PI/2, 0]}>
+              <Cylinder args={[0.03, 0.03, 0.02, 8]} position={[0, 0, 0]} castShadow receiveShadow>
+                <meshStandardMaterial color={COLORS.WHITE} />
+              </Cylinder>
+              <Cylinder args={[0.03, 0.03, 0.04, 8]} position={[0, 0.04, 0]} rotation={[Math.PI/2, 0, 0]} castShadow receiveShadow>
+                <meshStandardMaterial color={COLORS.WHITE} />
+              </Cylinder>
+              <Cylinder args={[0.03, 0.03, 0.02, 8]} position={[0, 0.08, 0]} castShadow receiveShadow>
+                <meshStandardMaterial color={COLORS.WHITE} />
+              </Cylinder>
+            </group>
+          </group>
+
+          {/* Second White Cup */}
+          <group position={[0.1, 0.75, 0.2]}>
+            {/* Cup Body */}
+            <Cylinder args={[0.06, 0.04, 0.12, 16]} castShadow receiveShadow>
+              <meshStandardMaterial color={COLORS.WHITE} roughness={0.2} metalness={0.1} />
+            </Cylinder>
+            {/* Cup Handle */}
+            <group position={[0.06, 0, 0]} rotation={[0, -Math.PI/2, 0]}>
+              <Cylinder args={[0.03, 0.03, 0.02, 8]} position={[0, 0, 0]} castShadow receiveShadow>
+                <meshStandardMaterial color={COLORS.WHITE} />
+              </Cylinder>
+              <Cylinder args={[0.03, 0.03, 0.04, 8]} position={[0, 0.04, 0]} rotation={[Math.PI/2, 0, 0]} castShadow receiveShadow>
+                <meshStandardMaterial color={COLORS.WHITE} />
+              </Cylinder>
+              <Cylinder args={[0.03, 0.03, 0.02, 8]} position={[0, 0.08, 0]} castShadow receiveShadow>
+                <meshStandardMaterial color={COLORS.WHITE} />
+              </Cylinder>
+            </group>
+          </group>
+
+          {/* Plate with Croissant */}
+          <group position={[-0.2, 0.73, 0]}>
+            {/* Plate */}
+            <Cylinder args={[0.15, 0.16, 0.02, 32]} castShadow receiveShadow>
+              <meshStandardMaterial color={COLORS.WHITE} roughness={0.2} metalness={0.1} />
+            </Cylinder>
+            
+            {/* Croissant */}
+            <group position={[0, 0.02, 0]} rotation={[0, Math.PI/4, 0]}>
+              {/* Main body of croissant */}
+              <mesh castShadow>
+                <torusGeometry args={[0.08, 0.03, 16, 32, Math.PI]} />
+                <meshStandardMaterial color="#FFE4B5" roughness={0.7} />
+              </mesh>
+              {/* Details/layers */}
+              {Array.from({ length: 3 }).map((_, i) => (
+                <mesh key={`layer-${i}`} position={[0, 0.005 * i, 0]} castShadow>
+                  <torusGeometry args={[0.08 - 0.005 * i, 0.02, 16, 32, Math.PI]} />
+                  <meshStandardMaterial color="#DEB887" roughness={0.8} />
+                </mesh>
+              ))}
+            </group>
+          </group>
+
+          {/* White Vase with Red Roses */}
+          <group position={[-0.4, 0.75, 0.2]}>
+            {/* White Vase */}
+            <Cylinder 
+              args={[0.06, 0.04, 0.15, 16]} 
+              castShadow 
+              receiveShadow
+            >
+              <meshStandardMaterial 
+                color={COLORS.WHITE} 
+                roughness={0.2} 
+                metalness={0.1}
+              />
+            </Cylinder>
+
+            {/* Red Roses */}
+            {Array.from({ length: 3 }).map((_, index) => {
+              const angle = (index * Math.PI * 2) / 3
+              const radius = 0.02
+              return (
+                <group key={`rose-${index}`} position={[
+                  radius * Math.cos(angle),
+                  0.15,
+                  radius * Math.sin(angle)
+                ]}>
+                  {/* Stem */}
+                  <Cylinder 
+                    args={[0.003, 0.003, 0.15, 8]} 
+                    position={[0, 0, 0]}
+                    rotation={[0.2 * (Math.random() - 0.5), 0, 0.2 * (Math.random() - 0.5)]}
+                    castShadow
+                  >
+                    <meshStandardMaterial color={COLORS.ROSE_GREEN} />
+                  </Cylinder>
+                  
+                  {/* Rose Flower */}
+                  <group position={[0, 0.15, 0]}>
+                    {/* Center of the rose */}
+                    <Cylinder 
+                      args={[0.02, 0.02, 0.02, 16]} 
+                      castShadow
+                    >
+                      <meshStandardMaterial color={COLORS.ROSE_RED} />
+                    </Cylinder>
+                    
+                    {/* Rose petals */}
+                    {Array.from({ length: 12 }).map((_, petalIndex) => {
+                      const petalAngle = (petalIndex * Math.PI * 2) / 12
+                      return (
+                        <group 
+                          key={`petal-${petalIndex}`} 
+                          position={[
+                            0.015 * Math.cos(petalAngle),
+                            0,
+                            0.015 * Math.sin(petalAngle)
+                          ]}
+                          rotation={[
+                            0.3 + Math.random() * 0.2,
+                            petalAngle,
+                            0.5 + Math.random() * 0.2
+                          ]}
+                        >
+                          <Box 
+                            args={[0.025, 0.01, 0.025]} 
+                            castShadow
+                          >
+                            <meshStandardMaterial 
+                              color={COLORS.ROSE_RED}
+                              roughness={0.6}
+                            />
+                          </Box>
+                        </group>
+                      )
+                    })}
+                  </group>
+                </group>
+              )
+            })}
+          </group>
+        </group>
+      </InteractiveObject>
+
       {/* Chairs */}
       {[
-        [3.5, 0], // First chair position - moved further right
-        [0, 0]  // Second chair position - moved further left
+        [3.5, 0], // First table - right chair
+        [0, 0],  // First table - left chair
+        [3.5, 2.5], // Second table - right chair
+        [0, 2.5]  // Second table - left chair
       ].map(([x, z], index) => (
         <InteractiveObject key={`chair-${index}`} objectId={`chair-${index}`}>
-          <group position={[x, 0.5, z]} rotation={[0, index === 0 ? Math.PI * 0.1 : -Math.PI * 0.1, 0]}>
+          <group position={[x, 0.5, z]} rotation={[0, index % 2 === 0 ? Math.PI * 0.1 : -Math.PI * 0.1, 0]}>
             {/* Seat */}
             <Box args={[0.45, 0.05, 0.45]} position={[0, 0.45, 0]} castShadow receiveShadow>
               <meshStandardMaterial
@@ -520,7 +699,7 @@ export default function CafeScene() {
 
       {/* Wall-mounted Shelf */}
       <InteractiveObject objectId="shelf">
-        <group position={[3, 2, -7.8]}>
+        <group position={[4.5, 2, -7.8]}>
           {/* Main shelf board */}
           <Box 
             args={[2, 0.08, 0.3]} 
@@ -630,8 +809,8 @@ export default function CafeScene() {
         </Box>
 
         {/* Wall Sconces */}
-        {[-1.8, 1.8].map((x, index) => (
-          <group key={`sconce-${index}`} position={[x, 4.2, 0.2]}>
+        {[-2, 2].map((x, index) => (
+          <group key={`sconce-${index}`} position={[x, 4.8, 0.2]}>
             {/* Wall Mount */}
             <Box 
               args={[0.1, 0.2, 0.1]} 
@@ -691,8 +870,8 @@ export default function CafeScene() {
           </group>
         ))}
 
-        {/* Painting Frame */}
-        <group position={[0, 3, 0.1]}>
+        {/* Starry Night Painting Frame */}
+        <group position={[-2, 3, 0.1]}>
           {/* Main Frame */}
           <Box 
             args={[3.2, 2.2, 0.1]} 
@@ -749,6 +928,83 @@ export default function CafeScene() {
             <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
           </Box>
         </group>
+
+        {/* Mona Lisa Painting Frame */}
+        <group position={[2, 3, 0.1]}>
+          {/* Main Frame */}
+          <Box 
+            args={[2.2, 3.2, 0.1]} 
+            castShadow 
+            receiveShadow
+          >
+            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+          </Box>
+
+          {/* Painting Canvas */}
+          <Box 
+            args={[2, 3, 0.05]} 
+            position={[0, 0, 0.05]}
+            castShadow
+          >
+            <meshStandardMaterial
+              map={new THREE.TextureLoader().load('/mona-lisa.jpg')}
+              roughness={0.5}
+              metalness={0.1}
+            />
+          </Box>
+
+          {/* Frame Details */}
+          {/* Top */}
+          <Box 
+            args={[2.4, 0.15, 0.15]} 
+            position={[0, 1.6, 0.05]}
+            castShadow
+          >
+            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+          </Box>
+          {/* Bottom */}
+          <Box 
+            args={[2.4, 0.15, 0.15]} 
+            position={[0, -1.6, 0.05]}
+            castShadow
+          >
+            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+          </Box>
+          {/* Left */}
+          <Box 
+            args={[0.15, 3.4, 0.15]} 
+            position={[-1.1, 0, 0.05]}
+            castShadow
+          >
+            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+          </Box>
+          {/* Right */}
+          <Box 
+            args={[0.15, 3.4, 0.15]} 
+            position={[1.1, 0, 0.05]}
+            castShadow
+          >
+            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+          </Box>
+        </group>
+
+        {/* Additional spot lights for the paintings */}
+        <spotLight
+          position={[-2, 4, -6]}
+          angle={Math.PI / 6}
+          penumbra={0.5}
+          intensity={1.2}
+          target-position={[-2, 3, -7.9]}
+          castShadow
+        />
+        <spotLight
+          position={[2, 4, -6]}
+          angle={Math.PI / 6}
+          penumbra={0.5}
+          intensity={1.2}
+          target-position={[2, 3, -7.9]}
+          castShadow
+        />
       </group>
 
       {/* Plant Pot with Leaves */}
@@ -850,15 +1106,6 @@ export default function CafeScene() {
         position={[-5, 5, -5]} 
         intensity={0.3}
         shadow-bias={-0.0001}
-      />
-      {/* Additional spot light for the painting */}
-      <spotLight
-        position={[0, 4, -6]}
-        angle={Math.PI / 6}
-        penumbra={0.5}
-        intensity={1.2}
-        target-position={[0, 3, -7.9]}
-        castShadow
       />
     </group>
   )
