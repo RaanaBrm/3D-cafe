@@ -75,7 +75,7 @@ export default function CafeScene() {
       <Plane
         args={[20, 20]}
         rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, -0.5, 0]}
+        position={[0, 0, 0]}
         receiveShadow
       >
         <meshStandardMaterial
@@ -88,7 +88,7 @@ export default function CafeScene() {
 
       {/* Character */}
       <InteractiveObject objectId="character">
-        <group position={[-2, 0, 0]} rotation={[0, Math.PI * 0.25, 0]}>
+        <group position={[-2, 0.5, 0]} rotation={[0, Math.PI * 0.25, 0]}>
           {/* Body */}
           <group position={[0, 0.9, 0]}>
             {/* Torso */}
@@ -315,7 +315,7 @@ export default function CafeScene() {
 
       {/* Round Table with Cup */}
       <InteractiveObject objectId="table">
-        <group position={[1.5, 0, 0]}>
+        <group position={[1.5, 0.5, 0]}>
           {/* Table Top */}
           <Cylinder args={[0.9, 0.9, 0.05, 32]} position={[0, 0.7, 0]} castShadow receiveShadow>
             <meshStandardMaterial
@@ -482,7 +482,7 @@ export default function CafeScene() {
         [0, 0]  // Second chair position - moved further left
       ].map(([x, z], index) => (
         <InteractiveObject key={`chair-${index}`} objectId={`chair-${index}`}>
-          <group position={[x, 0, z]} rotation={[0, index === 0 ? Math.PI * 0.1 : -Math.PI * 0.1, 0]}>
+          <group position={[x, 0.5, z]} rotation={[0, index === 0 ? Math.PI * 0.1 : -Math.PI * 0.1, 0]}>
             {/* Seat */}
             <Box args={[0.45, 0.05, 0.45]} position={[0, 0.45, 0]} castShadow receiveShadow>
               <meshStandardMaterial
@@ -753,7 +753,7 @@ export default function CafeScene() {
 
       {/* Plant Pot with Leaves */}
       <InteractiveObject objectId="plant">
-        <group position={[4.2, 0, 0.3]} rotation={[0, Math.PI * 0.15, 0]}>
+        <group position={[4.2, 0.5, 0.3]} rotation={[0, Math.PI * 0.15, 0]}>
           {/* Pot base */}
           <Cylinder 
             args={[0.25, 0.2, 0.05, 32]} 
