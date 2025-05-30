@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import { Box, Plane, Cylinder } from '@react-three/drei'
 import { Interactive, useXR } from '@react-three/xr'
 import * as THREE from 'three'
+import WoodenDiningSet from './WoodenDiningSet'
 
 // Colors
 const COLORS = {
@@ -86,389 +87,49 @@ export default function CafeScene() {
         />
       </Plane>
 
-      {/* Round Table with Cup */}
-      <InteractiveObject objectId="table">
-        <group position={[1.5, 0.5, 0]}>
-          {/* Table Top */}
-          <Cylinder args={[0.9, 0.9, 0.05, 32]} position={[0, 0.7, 0]} castShadow receiveShadow>
-            <meshStandardMaterial
-              color={COLORS.DARK_BROWN}
-              roughness={0.7}
-              metalness={0.1}
-              emissive={hoveredObject === 'table' ? COLORS.DARK_BROWN : '#000000'}
-              emissiveIntensity={0.2}
-              toneMapped={false}
-            />
-          </Cylinder>
-          {/* Table Leg */}
-          <Cylinder args={[0.08, 0.08, 0.7, 8]} position={[0, 0.35, 0]} castShadow receiveShadow>
-            <meshStandardMaterial
-              color={COLORS.DARK_BROWN}
-              roughness={0.7}
-              metalness={0.1}
-            />
-          </Cylinder>
-          {/* Base */}
-          <Cylinder args={[0.4, 0.4, 0.05, 16]} position={[0, 0, 0]} castShadow receiveShadow>
-            <meshStandardMaterial
-              color={COLORS.DARK_BROWN}
-              roughness={0.7}
-              metalness={0.1}
-            />
-          </Cylinder>
-          
-          {/* Coffee Cup */}
-          <group position={[0.3, 0.75, 0]}>
-            {/* Cup Body */}
-            <Cylinder args={[0.06, 0.04, 0.12, 16]} castShadow receiveShadow>
-              <meshStandardMaterial color={COLORS.WHITE} roughness={0.2} metalness={0.1} />
-            </Cylinder>
-            {/* Cup Handle */}
-            <group position={[0.06, 0, 0]} rotation={[0, -Math.PI/2, 0]}>
-              <Cylinder args={[0.03, 0.03, 0.02, 8]} position={[0, 0, 0]} castShadow receiveShadow>
-                <meshStandardMaterial color={COLORS.WHITE} />
-              </Cylinder>
-              <Cylinder args={[0.03, 0.03, 0.04, 8]} position={[0, 0.04, 0]} rotation={[Math.PI/2, 0, 0]} castShadow receiveShadow>
-                <meshStandardMaterial color={COLORS.WHITE} />
-              </Cylinder>
-              <Cylinder args={[0.03, 0.03, 0.02, 8]} position={[0, 0.08, 0]} castShadow receiveShadow>
-                <meshStandardMaterial color={COLORS.WHITE} />
-              </Cylinder>
-            </group>
-            {/* Coffee Surface */}
-            <Cylinder args={[0.055, 0.055, 0.01, 16]} position={[0, 0.06, 0]} castShadow receiveShadow>
-              <meshStandardMaterial color="#4A2C2A" roughness={0.3} />
-            </Cylinder>
-          </group>
-          
-          {/* Rose Vase */}
-          <group position={[-0.2, 0.75, 0]}>
-            {/* Glass Vase */}
-            <Cylinder 
-              args={[0.04, 0.03, 0.12, 16]} 
-              castShadow 
-              receiveShadow
-            >
-              <meshStandardMaterial 
-                color={COLORS.WHITE} 
-                transparent={true} 
-                opacity={0.6}
-                roughness={0.1}
-                metalness={0.3}
-              />
-            </Cylinder>
-
-            {/* Water effect */}
-            <Cylinder 
-              args={[0.035, 0.025, 0.08, 16]} 
-              position={[0, -0.01, 0]}
-            >
-              <meshStandardMaterial 
-                color="#ADD8E6"
-                transparent={true}
-                opacity={0.3}
-                roughness={0.1}
-              />
-            </Cylinder>
-
-            {/* Rose Stems */}
-            {Array.from({ length: 3 }).map((_, index) => {
-              const angle = (index * Math.PI * 2) / 3 + Math.random() * 0.5
-              const radius = 0.01 + Math.random() * 0.01
-              return (
-                <group key={`stem-${index}`} position={[radius * Math.cos(angle), 0.06, radius * Math.sin(angle)]}>
-                  <Cylinder 
-                    args={[0.003, 0.003, 0.15, 8]} 
-                    position={[0, 0.075, 0]}
-                    rotation={[0.2 * Math.random(), 0, 0.2 * Math.random()]}
-                    castShadow
-                  >
-                    <meshStandardMaterial color={COLORS.ROSE_GREEN} />
-                  </Cylinder>
-                  
-                  {/* Rose Flower */}
-                  <group position={[0, 0.15, 0]} rotation={[0.2 * Math.random(), 0, 0.2 * Math.random()]}>
-                    {/* Center of the rose */}
-                    <Cylinder 
-                      args={[0.015, 0.015, 0.02, 16]} 
-                      castShadow
-                    >
-                      <meshStandardMaterial color={COLORS.ROSE_RED} />
-                    </Cylinder>
-                    
-                    {/* Rose petals */}
-                    {Array.from({ length: 8 }).map((_, petalIndex) => {
-                      const petalAngle = (petalIndex * Math.PI * 2) / 8
-                      return (
-                        <group 
-                          key={`petal-${petalIndex}`} 
-                          position={[
-                            0.01 * Math.cos(petalAngle),
-                            0,
-                            0.01 * Math.sin(petalAngle)
-                          ]}
-                          rotation={[
-                            0.3 + Math.random() * 0.2,
-                            petalAngle,
-                            0.5 + Math.random() * 0.2
-                          ]}
-                        >
-                          <Box 
-                            args={[0.02, 0.01, 0.02]} 
-                            castShadow
-                          >
-                            <meshStandardMaterial 
-                              color={COLORS.ROSE_RED}
-                              roughness={0.6}
-                            />
-                          </Box>
-                        </group>
-                      )
-                    })}
-                  </group>
-
-                  {/* Small Leaves */}
-                  {Array.from({ length: 2 }).map((_, leafIndex) => (
-                    <group 
-                      key={`leaf-${index}-${leafIndex}`}
-                      position={[0, 0.05 + leafIndex * 0.06, 0]}
-                      rotation={[0, Math.PI * 2 * Math.random(), 0]}
-                    >
-                      <Box 
-                        args={[0.02, 0.01, 0.04]}
-                        castShadow
-                      >
-                        <meshStandardMaterial color={COLORS.ROSE_GREEN} />
-                      </Box>
-                    </group>
-                  ))}
-                </group>
-              )
-            })}
-          </group>
-        </group>
+      {/* First Dining Set - Back Left */}
+      <InteractiveObject objectId="dining-set-1">
+        <WoodenDiningSet
+          position={[-3.5, 0, -4]}
+          rotation={[0, 0, 0]}
+          scale={0.0015}
+          onHover={(isHovered) => setHoveredObject(isHovered ? 'dining-set-1' : null)}
+          onSelect={() => handleSelect('dining-set-1')}
+        />
       </InteractiveObject>
 
-      {/* Second Round Table with Items */}
-      <InteractiveObject objectId="table2">
-        <group position={[1.5, 0.5, 2.5]}>
-          {/* Table Top */}
-          <Cylinder args={[0.9, 0.9, 0.05, 32]} position={[0, 0.7, 0]} castShadow receiveShadow>
-            <meshStandardMaterial
-              color={COLORS.DARK_BROWN}
-              roughness={0.7}
-              metalness={0.1}
-              emissive={hoveredObject === 'table2' ? COLORS.DARK_BROWN : '#000000'}
-              emissiveIntensity={0.2}
-              toneMapped={false}
-            />
-          </Cylinder>
-          {/* Table Leg */}
-          <Cylinder args={[0.08, 0.08, 0.7, 8]} position={[0, 0.35, 0]} castShadow receiveShadow>
-            <meshStandardMaterial
-              color={COLORS.DARK_BROWN}
-              roughness={0.7}
-              metalness={0.1}
-            />
-          </Cylinder>
-          {/* Base */}
-          <Cylinder args={[0.4, 0.4, 0.05, 16]} position={[0, 0, 0]} castShadow receiveShadow>
-            <meshStandardMaterial
-              color={COLORS.DARK_BROWN}
-              roughness={0.7}
-              metalness={0.1}
-            />
-          </Cylinder>
-          
-          {/* First White Cup */}
-          <group position={[0.3, 0.75, 0]}>
-            {/* Cup Body */}
-            <Cylinder args={[0.06, 0.04, 0.12, 16]} castShadow receiveShadow>
-              <meshStandardMaterial color={COLORS.WHITE} roughness={0.2} metalness={0.1} />
-            </Cylinder>
-            {/* Cup Handle */}
-            <group position={[0.06, 0, 0]} rotation={[0, -Math.PI/2, 0]}>
-              <Cylinder args={[0.03, 0.03, 0.02, 8]} position={[0, 0, 0]} castShadow receiveShadow>
-                <meshStandardMaterial color={COLORS.WHITE} />
-              </Cylinder>
-              <Cylinder args={[0.03, 0.03, 0.04, 8]} position={[0, 0.04, 0]} rotation={[Math.PI/2, 0, 0]} castShadow receiveShadow>
-                <meshStandardMaterial color={COLORS.WHITE} />
-              </Cylinder>
-              <Cylinder args={[0.03, 0.03, 0.02, 8]} position={[0, 0.08, 0]} castShadow receiveShadow>
-                <meshStandardMaterial color={COLORS.WHITE} />
-              </Cylinder>
-            </group>
-          </group>
-
-          {/* Second White Cup */}
-          <group position={[0.1, 0.75, 0.2]}>
-            {/* Cup Body */}
-            <Cylinder args={[0.06, 0.04, 0.12, 16]} castShadow receiveShadow>
-              <meshStandardMaterial color={COLORS.WHITE} roughness={0.2} metalness={0.1} />
-            </Cylinder>
-            {/* Cup Handle */}
-            <group position={[0.06, 0, 0]} rotation={[0, -Math.PI/2, 0]}>
-              <Cylinder args={[0.03, 0.03, 0.02, 8]} position={[0, 0, 0]} castShadow receiveShadow>
-                <meshStandardMaterial color={COLORS.WHITE} />
-              </Cylinder>
-              <Cylinder args={[0.03, 0.03, 0.04, 8]} position={[0, 0.04, 0]} rotation={[Math.PI/2, 0, 0]} castShadow receiveShadow>
-                <meshStandardMaterial color={COLORS.WHITE} />
-              </Cylinder>
-              <Cylinder args={[0.03, 0.03, 0.02, 8]} position={[0, 0.08, 0]} castShadow receiveShadow>
-                <meshStandardMaterial color={COLORS.WHITE} />
-              </Cylinder>
-            </group>
-          </group>
-
-          {/* Plate with Croissant */}
-          <group position={[-0.2, 0.73, 0]}>
-            {/* Plate */}
-            <Cylinder args={[0.15, 0.16, 0.02, 32]} castShadow receiveShadow>
-              <meshStandardMaterial color={COLORS.WHITE} roughness={0.2} metalness={0.1} />
-            </Cylinder>
-            
-            {/* Croissant */}
-            <group position={[0, 0.02, 0]} rotation={[0, Math.PI/4, 0]}>
-              {/* Main body of croissant */}
-              <mesh castShadow>
-                <torusGeometry args={[0.08, 0.03, 16, 32, Math.PI]} />
-                <meshStandardMaterial color="#FFE4B5" roughness={0.7} />
-              </mesh>
-              {/* Details/layers */}
-              {Array.from({ length: 3 }).map((_, i) => (
-                <mesh key={`layer-${i}`} position={[0, 0.005 * i, 0]} castShadow>
-                  <torusGeometry args={[0.08 - 0.005 * i, 0.02, 16, 32, Math.PI]} />
-                  <meshStandardMaterial color="#DEB887" roughness={0.8} />
-                </mesh>
-              ))}
-            </group>
-          </group>
-
-          {/* White Vase with Red Roses */}
-          <group position={[-0.4, 0.75, 0.2]}>
-            {/* White Vase */}
-            <Cylinder 
-              args={[0.06, 0.04, 0.15, 16]} 
-              castShadow 
-              receiveShadow
-            >
-              <meshStandardMaterial 
-                color={COLORS.WHITE} 
-                roughness={0.2} 
-                metalness={0.1}
-              />
-            </Cylinder>
-
-            {/* Red Roses */}
-            {Array.from({ length: 3 }).map((_, index) => {
-              const angle = (index * Math.PI * 2) / 3
-              const radius = 0.02
-              return (
-                <group key={`rose-${index}`} position={[
-                  radius * Math.cos(angle),
-                  0.15,
-                  radius * Math.sin(angle)
-                ]}>
-                  {/* Stem */}
-                  <Cylinder 
-                    args={[0.003, 0.003, 0.15, 8]} 
-                    position={[0, 0, 0]}
-                    rotation={[0.2 * (Math.random() - 0.5), 0, 0.2 * (Math.random() - 0.5)]}
-                    castShadow
-                  >
-                    <meshStandardMaterial color={COLORS.ROSE_GREEN} />
-                  </Cylinder>
-                  
-                  {/* Rose Flower */}
-                  <group position={[0, 0.15, 0]}>
-                    {/* Center of the rose */}
-                    <Cylinder 
-                      args={[0.02, 0.02, 0.02, 16]} 
-                      castShadow
-                    >
-                      <meshStandardMaterial color={COLORS.ROSE_RED} />
-                    </Cylinder>
-                    
-                    {/* Rose petals */}
-                    {Array.from({ length: 12 }).map((_, petalIndex) => {
-                      const petalAngle = (petalIndex * Math.PI * 2) / 12
-                      return (
-                        <group 
-                          key={`petal-${petalIndex}`} 
-                          position={[
-                            0.015 * Math.cos(petalAngle),
-                            0,
-                            0.015 * Math.sin(petalAngle)
-                          ]}
-                          rotation={[
-                            0.3 + Math.random() * 0.2,
-                            petalAngle,
-                            0.5 + Math.random() * 0.2
-                          ]}
-                        >
-                          <Box 
-                            args={[0.025, 0.01, 0.025]} 
-                            castShadow
-                          >
-                            <meshStandardMaterial 
-                              color={COLORS.ROSE_RED}
-                              roughness={0.6}
-                            />
-                          </Box>
-                        </group>
-                      )
-                    })}
-                  </group>
-                </group>
-              )
-            })}
-          </group>
-        </group>
+      {/* Second Dining Set - Back Right */}
+      <InteractiveObject objectId="dining-set-2">
+        <WoodenDiningSet
+          position={[3.5, 0, -4]}
+          rotation={[0, 0, 0]}
+          scale={0.0015}
+          onHover={(isHovered) => setHoveredObject(isHovered ? 'dining-set-2' : null)}
+          onSelect={() => handleSelect('dining-set-2')}
+        />
       </InteractiveObject>
 
-      {/* Chairs */}
-      {[
-        [3.5, 0], // First table - right chair
-        [0, 0],  // First table - left chair
-        [3.5, 2.5], // Second table - right chair
-        [0, 2.5]  // Second table - left chair
-      ].map(([x, z], index) => (
-        <InteractiveObject key={`chair-${index}`} objectId={`chair-${index}`}>
-          <group position={[x, 0.5, z]} rotation={[0, index % 2 === 0 ? Math.PI * 0.1 : -Math.PI * 0.1, 0]}>
-            {/* Seat */}
-            <Box args={[0.45, 0.05, 0.45]} position={[0, 0.45, 0]} castShadow receiveShadow>
-              <meshStandardMaterial
-                color={COLORS.LIGHT_BROWN}
-                roughness={0.9}
-                metalness={0.1}
-                emissive={hoveredObject === `chair-${index}` ? COLORS.LIGHT_BROWN : '#000000'}
-                emissiveIntensity={0.2}
-                toneMapped={false}
-              />
-            </Box>
-            {/* Back */}
-            <Box args={[0.45, 0.5, 0.05]} position={[0, 0.7, -0.2]} castShadow receiveShadow>
-              <meshStandardMaterial
-                color={COLORS.LIGHT_BROWN}
-                roughness={0.9}
-                metalness={0.1}
-              />
-            </Box>
-            {/* Legs */}
-            {[[-0.2, -0.2], [0.2, -0.2], [-0.2, 0.2], [0.2, 0.2]].map(([legX, legZ], legIndex) => (
-              <Box
-                key={`leg-${legIndex}`}
-                args={[0.05, 0.45, 0.05]}
-                position={[legX, 0.225, legZ]}
-                castShadow
-                receiveShadow
-              >
-                <meshStandardMaterial color={COLORS.LIGHT_BROWN} />
-              </Box>
-            ))}
-          </group>
-        </InteractiveObject>
-      ))}
+      {/* Third Dining Set - Front Left */}
+      <InteractiveObject objectId="dining-set-3">
+        <WoodenDiningSet
+          position={[-3.5, 0, -1]}
+          rotation={[0, 0, 0]}
+          scale={0.0015}
+          onHover={(isHovered) => setHoveredObject(isHovered ? 'dining-set-3' : null)}
+          onSelect={() => handleSelect('dining-set-3')}
+        />
+      </InteractiveObject>
+
+      {/* Fourth Dining Set - Front Right */}
+      <InteractiveObject objectId="dining-set-4">
+        <WoodenDiningSet
+          position={[3.5, 0, -1]}
+          rotation={[0, 0, 0]}
+          scale={0.0015}
+          onHover={(isHovered) => setHoveredObject(isHovered ? 'dining-set-4' : null)}
+          onSelect={() => handleSelect('dining-set-4')}
+        />
+      </InteractiveObject>
 
       {/* Wall-mounted Shelf */}
       <InteractiveObject objectId="shelf">
@@ -779,92 +440,6 @@ export default function CafeScene() {
           castShadow
         />
       </group>
-
-      {/* Plant Pot with Leaves */}
-      <InteractiveObject objectId="plant">
-        <group position={[4.2, 0.5, 0.3]} rotation={[0, Math.PI * 0.15, 0]}>
-          {/* Pot base */}
-          <Cylinder 
-            args={[0.25, 0.2, 0.05, 32]} 
-            position={[0, 0.025, 0]} 
-            castShadow 
-            receiveShadow
-          >
-            <meshStandardMaterial color={COLORS.POT_BROWN} roughness={0.8} />
-          </Cylinder>
-
-          {/* Pot body */}
-          <Cylinder 
-            args={[0.2, 0.25, 0.5, 32]} 
-            position={[0, 0.3, 0]} 
-            castShadow 
-            receiveShadow
-          >
-            <meshStandardMaterial color={COLORS.POT_BROWN} roughness={0.8} />
-          </Cylinder>
-
-          {/* Plant stems and leaves */}
-          <group position={[0, 0.55, 0]}>
-            {/* Center tall stem with leaves */}
-            <group rotation={[0, Math.random() * Math.PI * 2, 0]}>
-              <Cylinder 
-                args={[0.02, 0.02, 1, 8]} 
-                position={[0, 0.5, 0]} 
-                rotation={[0.1, 0, 0]} 
-                castShadow
-              >
-                <meshStandardMaterial color={COLORS.PLANT_GREEN} />
-              </Cylinder>
-              {/* Leaves for center stem */}
-              {[0.4, 0.6, 0.8].map((height, index) => (
-                <group key={`center-leaf-${index}`} position={[0, height, 0]}>
-                  <Box 
-                    args={[0.25, 0.02, 0.4]} 
-                    rotation={[0.3, Math.PI * 0.2 * (index % 2 ? 1 : -1), 0]}
-                    castShadow
-                  >
-                    <meshStandardMaterial color={COLORS.PLANT_GREEN} />
-                  </Box>
-                </group>
-              ))}
-            </group>
-
-            {/* Side stems with leaves */}
-            {Array.from({ length: 6 }).map((_, index) => {
-              const angle = (index * Math.PI / 3) + Math.random() * 0.5
-              const tilt = 0.4 + Math.random() * 0.3
-              return (
-                <group key={`stem-${index}`} rotation={[0, angle, 0]}>
-                  <Cylinder 
-                    args={[0.015, 0.015, 0.7, 8]} 
-                    position={[0.15, 0.35, 0]} 
-                    rotation={[tilt, 0, 0.2]} 
-                    castShadow
-                  >
-                    <meshStandardMaterial color={COLORS.PLANT_GREEN} />
-                  </Cylinder>
-                  {/* Leaves for side stems */}
-                  {[0.3, 0.5].map((height, leafIndex) => (
-                    <group 
-                      key={`leaf-${index}-${leafIndex}`} 
-                      position={[0.15, height, 0]}
-                      rotation={[tilt, 0, 0.2]}
-                    >
-                      <Box 
-                        args={[0.2, 0.02, 0.35]} 
-                        rotation={[0.3, Math.PI * 0.2 * (leafIndex % 2 ? 1 : -1), 0]}
-                        castShadow
-                      >
-                        <meshStandardMaterial color={COLORS.PLANT_LIGHT_GREEN} />
-                      </Box>
-                    </group>
-                  ))}
-                </group>
-              )
-            })}
-          </group>
-        </group>
-      </InteractiveObject>
 
       {/* Enhanced Lighting */}
       <ambientLight intensity={0.6} />
