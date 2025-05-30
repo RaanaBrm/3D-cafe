@@ -7,23 +7,22 @@ A beautiful and interactive 3D cafe scene built with React Three Fiber, featurin
 ## Features
 
 - **Detailed 3D Environment**
-  - Elegant round table with coffee cup and rose vase
+  - Two elegant round tables with coffee cups and rose vases
   - Comfortable chairs with proper spacing and positioning
   - Wall-mounted shelf with decorative books and plants
-  - Van Gogh's "Starry Night" painting with custom frame
+  - Art Gallery Wall featuring:
+    - Van Gogh's "Starry Night" painting
+    - Mona Lisa with custom frame
   - Decorative wall sconces with warm lighting
   - Large potted plant with dynamic leaves
+  - Croissant plate and table settings
 
 - **Interactive Elements**
   - Hover effects on furniture
   - VR-ready interactions
   - Dynamic lighting and shadows
   - Realistic materials and textures
-
-- **Character Design**
-  - Detailed cafe staff character "Emma"
-  - Custom uniform with name tag
-  - Realistic hair and facial features
+  - Interactive objects with VR controller support
 
 ## Technologies Used
 
