@@ -231,168 +231,6 @@ export default function CafeScene() {
         />
       </InteractiveObject>
 
-      {/* Wall-mounted Shelf */}
-      <InteractiveObject objectId="shelf">
-        <group position={[4.5, 2, -7.8]}>
-          {/* Main shelf board */}
-          <Box 
-            args={[2, 0.08, 0.3]} 
-            castShadow 
-            receiveShadow
-          >
-            <meshStandardMaterial color={COLORS.WHITE} roughness={0.6} metalness={0.1} />
-          </Box>
-
-          {/* Logo above the shelf */}
-          <group position={[0, 1.5, 0.1]}>
-            {/* Logo Frame */}
-            <Box 
-              args={[1.6, 0.8, 0.1]} 
-              castShadow 
-              receiveShadow
-            >
-              <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-            </Box>
-
-            {/* Logo Canvas */}
-            <Box 
-              args={[1.4, 0.6, 0.05]} 
-              position={[0, 0, 0.05]}
-              castShadow
-            >
-              <meshStandardMaterial
-                map={new THREE.TextureLoader().load('/logo.png')}
-                transparent={true}
-                roughness={0.2}
-                metalness={0.1}
-                alphaTest={0.5}
-                side={THREE.DoubleSide}
-              />
-            </Box>
-
-            {/* Frame Details */}
-            {/* Top */}
-            <Box 
-              args={[1.8, 0.12, 0.15]} 
-              position={[0, 0.4, 0.05]}
-              castShadow
-            >
-              <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-            </Box>
-            {/* Bottom */}
-            <Box 
-              args={[1.8, 0.12, 0.15]} 
-              position={[0, -0.4, 0.05]}
-              castShadow
-            >
-              <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-            </Box>
-            {/* Left */}
-            <Box 
-              args={[0.12, 1, 0.15]} 
-              position={[-0.8, 0, 0.05]}
-              castShadow
-            >
-              <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-            </Box>
-            {/* Right */}
-            <Box 
-              args={[0.12, 1, 0.15]} 
-              position={[0.8, 0, 0.05]}
-              castShadow
-            >
-              <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-            </Box>
-          </group>
-
-          {/* Shelf supports */}
-          {[-0.8, 0.8].map((x, index) => (
-            <group key={`support-${index}`} position={[x, -0.1, 0]}>
-              <Box 
-                args={[0.08, 0.2, 0.3]} 
-                castShadow 
-                receiveShadow
-              >
-                <meshStandardMaterial color={COLORS.WHITE} roughness={0.6} metalness={0.1} />
-              </Box>
-            </group>
-          ))}
-
-          {/* Books on shelf */}
-          {Array.from({ length: 5 }).map((_, bookIndex) => {
-            const bookWidth = 0.2
-            const startX = -0.8
-            const x = startX + bookIndex * bookWidth
-            const height = 0.3 + Math.random() * 0.1
-            const thickness = 0.05 + Math.random() * 0.03
-            const tilt = Math.random() * 0.1 - 0.05
-
-            // Alternate between textured and colored books
-            const useTexture = bookIndex % 2 === 0
-            const textureIndex = (bookIndex % 3) + 1 // Cycle through 3 textures
-
-            return (
-              <group 
-                key={`book-${bookIndex}`} 
-                position={[x, height/2 + 0.04, 0]} 
-                rotation={[0, 0, tilt]}
-              >
-                {/* Book body */}
-                <Box 
-                  args={[thickness, height, 0.25]} 
-                  castShadow 
-                  receiveShadow
-                >
-                  <meshStandardMaterial 
-                    color={useTexture ? '#FFFFFF' : COLORS.BOOK_COLORS[Math.floor(Math.random() * COLORS.BOOK_COLORS.length)]}
-                    map={useTexture ? new THREE.TextureLoader().load(`/books/book${textureIndex}.jpg`) : null}
-                    roughness={0.7}
-                  />
-                </Box>
-
-                {/* Book spine details */}
-                <Box 
-                  args={[thickness + 0.001, height * 0.1, 0.252]} 
-                  position={[0, height * 0.2, 0]} 
-                  castShadow 
-                  receiveShadow
-                >
-                  <meshStandardMaterial color={COLORS.WHITE} roughness={0.8} />
-                </Box>
-
-                {/* Book edges */}
-                <Box 
-                  args={[thickness, height, 0.01]} 
-                  position={[0, 0, 0.13]} 
-                  castShadow 
-                  receiveShadow
-                >
-                  <meshStandardMaterial color="#F5F5DC" roughness={0.5} />
-                </Box>
-                <Box 
-                  args={[thickness, height, 0.01]} 
-                  position={[0, 0, -0.13]} 
-                  castShadow 
-                  receiveShadow
-                >
-                  <meshStandardMaterial color="#F5F5DC" roughness={0.5} />
-                </Box>
-              </group>
-            )
-          })}
-
-          {/* Small decorative plant */}
-          <Box 
-            args={[0.15, 0.15, 0.15]} 
-            position={[0.9, 0.15, 0]} 
-            castShadow 
-            receiveShadow
-          >
-            <meshStandardMaterial color={COLORS.PLANT_GREEN} roughness={0.8} />
-          </Box>
-        </group>
-      </InteractiveObject>
-
       {/* Walls */}
       {/* Left Wall */}
       <Box
@@ -408,6 +246,102 @@ export default function CafeScene() {
         />
       </Box>
 
+      {/* Mona Lisa on Left Wall */}
+      <group position={[-7.9, 3, 0]}>
+        {/* Main Frame */}
+        <Box 
+          args={[0.1, 3.2, 2.2]} 
+          castShadow 
+          receiveShadow
+        >
+          <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+        </Box>
+
+        {/* Painting Canvas */}
+        <Box 
+          args={[0.05, 3, 2]} 
+          position={[0.05, 0, 0]}
+          castShadow
+        >
+          <meshStandardMaterial
+            map={new THREE.TextureLoader().load('/mona-lisa.jpg')}
+            roughness={0.5}
+            metalness={0.1}
+          />
+        </Box>
+
+        {/* Wall Sconces above Mona Lisa */}
+        {[0].map((_, index) => (
+          <group key={`sconce-left-${index}`} position={[0.1, 1.8, 0]}>
+            {/* Wall Mount */}
+            <Box 
+              args={[0.1, 0.2, 0.1]} 
+              castShadow
+            >
+              <meshStandardMaterial color={COLORS.LAMP_GOLD} metalness={0.7} roughness={0.3} />
+            </Box>
+            {/* Arm */}
+            <Box 
+              args={[0.2, 0.05, 0.05]} 
+              position={[0.1, 0, 0]}
+              castShadow
+            >
+              <meshStandardMaterial color={COLORS.LAMP_GOLD} metalness={0.7} roughness={0.3} />
+            </Box>
+            {/* Lampshade */}
+            <group position={[0.2, 0, 0]}>
+              <Cylinder 
+                args={[0.12, 0.12, 0.02, 16]} 
+                rotation={[0, 0, Math.PI/2]}
+                position={[0, 0.1, 0]} 
+                castShadow
+              >
+                <meshStandardMaterial color={COLORS.LAMP_GOLD} metalness={0.7} roughness={0.3} />
+              </Cylinder>
+              <Cylinder 
+                args={[0.12, 0.08, 0.2, 16]} 
+                rotation={[0, 0, Math.PI/2]}
+                position={[0, 0, 0]}
+                castShadow
+              >
+                <meshStandardMaterial 
+                  color={COLORS.LAMP_SHADE}
+                  transparent={true}
+                  opacity={0.8}
+                  emissive={COLORS.LAMP_SHADE}
+                  emissiveIntensity={0.2}
+                />
+              </Cylinder>
+              <Cylinder 
+                args={[0.08, 0.08, 0.02, 16]} 
+                rotation={[0, 0, Math.PI/2]}
+                position={[0, -0.1, 0]}
+                castShadow
+              >
+                <meshStandardMaterial color={COLORS.LAMP_GOLD} metalness={0.7} roughness={0.3} />
+              </Cylinder>
+              <pointLight
+                position={[0, 0, 0]}
+                intensity={0.4}
+                distance={3}
+                decay={2}
+                color="#FFF8E7"
+              />
+            </group>
+          </group>
+        ))}
+
+        {/* Spotlight for Mona Lisa */}
+        <spotLight
+          position={[0.5, 1.8, 0]}
+          angle={Math.PI / 6}
+          penumbra={0.5}
+          intensity={1.2}
+          target-position={[0, 0, 0]}
+          castShadow
+        />
+      </group>
+
       {/* Right Wall */}
       <Box
         args={[0.1, 6, 16]}
@@ -421,6 +355,102 @@ export default function CafeScene() {
           side={THREE.DoubleSide}
         />
       </Box>
+
+      {/* Starry Night on Right Wall */}
+      <group position={[7.9, 3, 0]}>
+        {/* Main Frame */}
+        <Box 
+          args={[0.1, 2.2, 3.2]} 
+          castShadow 
+          receiveShadow
+        >
+          <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+        </Box>
+
+        {/* Painting Canvas */}
+        <Box 
+          args={[0.05, 2, 3]} 
+          position={[-0.05, 0, 0]}
+          castShadow
+        >
+          <meshStandardMaterial
+            map={new THREE.TextureLoader().load('/starry-night.jpg')}
+            roughness={0.5}
+            metalness={0.1}
+          />
+        </Box>
+
+        {/* Wall Sconces above Starry Night */}
+        {[0].map((_, index) => (
+          <group key={`sconce-right-${index}`} position={[-0.1, 1.8, 0]}>
+            {/* Wall Mount */}
+            <Box 
+              args={[0.1, 0.2, 0.1]} 
+              castShadow
+            >
+              <meshStandardMaterial color={COLORS.LAMP_GOLD} metalness={0.7} roughness={0.3} />
+            </Box>
+            {/* Arm */}
+            <Box 
+              args={[0.2, 0.05, 0.05]} 
+              position={[-0.1, 0, 0]}
+              castShadow
+            >
+              <meshStandardMaterial color={COLORS.LAMP_GOLD} metalness={0.7} roughness={0.3} />
+            </Box>
+            {/* Lampshade */}
+            <group position={[-0.2, 0, 0]}>
+              <Cylinder 
+                args={[0.12, 0.12, 0.02, 16]} 
+                rotation={[0, 0, -Math.PI/2]}
+                position={[0, 0.1, 0]} 
+                castShadow
+              >
+                <meshStandardMaterial color={COLORS.LAMP_GOLD} metalness={0.7} roughness={0.3} />
+              </Cylinder>
+              <Cylinder 
+                args={[0.12, 0.08, 0.2, 16]} 
+                rotation={[0, 0, -Math.PI/2]}
+                position={[0, 0, 0]}
+                castShadow
+              >
+                <meshStandardMaterial 
+                  color={COLORS.LAMP_SHADE}
+                  transparent={true}
+                  opacity={0.8}
+                  emissive={COLORS.LAMP_SHADE}
+                  emissiveIntensity={0.2}
+                />
+              </Cylinder>
+              <Cylinder 
+                args={[0.08, 0.08, 0.02, 16]} 
+                rotation={[0, 0, -Math.PI/2]}
+                position={[0, -0.1, 0]}
+                castShadow
+              >
+                <meshStandardMaterial color={COLORS.LAMP_GOLD} metalness={0.7} roughness={0.3} />
+              </Cylinder>
+              <pointLight
+                position={[0, 0, 0]}
+                intensity={0.4}
+                distance={3}
+                decay={2}
+                color="#FFF8E7"
+              />
+            </group>
+          </group>
+        ))}
+
+        {/* Spotlight for Starry Night */}
+        <spotLight
+          position={[-0.5, 1.8, 0]}
+          angle={Math.PI / 6}
+          penumbra={0.5}
+          intensity={1.2}
+          target-position={[0, 0, 0]}
+          castShadow
+        />
+      </group>
 
       {/* Back Wall */}
       <Box 
@@ -436,25 +466,37 @@ export default function CafeScene() {
         />
       </Box>
 
-      {/* Back Wall with Painting */}
+      {/* Back Wall with Logo */}
       <group position={[0, 0, -8]}>
-        {/* Wall */}
+        {/* Logo Frame */}
         <Box 
-          args={[20, 6, 0.1]} 
-          position={[0, 3, 0]}
+          args={[4, 2, 0.1]} 
+          position={[0, 3.5, 0.1]}
+          castShadow 
           receiveShadow
         >
-          <meshStandardMaterial 
-            map={new THREE.TextureLoader().load('/wall.jpg')}
-            roughness={0.8}
+          <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+        </Box>
+
+        {/* Logo Canvas */}
+        <Box 
+          args={[3.8, 1.8, 0.05]} 
+          position={[0, 3.5, 0.15]}
+          castShadow
+        >
+          <meshStandardMaterial
+            map={new THREE.TextureLoader().load('/logo.png')}
+            transparent={true}
+            roughness={0.2}
             metalness={0.1}
+            alphaTest={0.5}
             side={THREE.DoubleSide}
           />
         </Box>
 
-        {/* Wall Sconces */}
+        {/* Wall Sconces above Logo */}
         {[-2, 2].map((x, index) => (
-          <group key={`sconce-${index}`} position={[x, 4.8, 0.2]}>
+          <group key={`sconce-back-${index}`} position={[x, 4.8, 0.2]}>
             {/* Wall Mount */}
             <Box 
               args={[0.1, 0.2, 0.1]} 
@@ -472,7 +514,6 @@ export default function CafeScene() {
             </Box>
             {/* Lampshade */}
             <group position={[0, 0, 0.2]}>
-              {/* Top ring */}
               <Cylinder 
                 args={[0.12, 0.12, 0.02, 16]} 
                 position={[0, 0.1, 0]} 
@@ -480,7 +521,6 @@ export default function CafeScene() {
               >
                 <meshStandardMaterial color={COLORS.LAMP_GOLD} metalness={0.7} roughness={0.3} />
               </Cylinder>
-              {/* Shade */}
               <Cylinder 
                 args={[0.12, 0.08, 0.2, 16]} 
                 position={[0, 0, 0]}
@@ -494,7 +534,6 @@ export default function CafeScene() {
                   emissiveIntensity={0.2}
                 />
               </Cylinder>
-              {/* Bottom ring */}
               <Cylinder 
                 args={[0.08, 0.08, 0.02, 16]} 
                 position={[0, -0.1, 0]}
@@ -502,7 +541,6 @@ export default function CafeScene() {
               >
                 <meshStandardMaterial color={COLORS.LAMP_GOLD} metalness={0.7} roughness={0.3} />
               </Cylinder>
-              {/* Light source */}
               <pointLight
                 position={[0, 0, 0]}
                 intensity={0.4}
@@ -514,149 +552,21 @@ export default function CafeScene() {
           </group>
         ))}
 
-        {/* Starry Night Painting Frame */}
-        <group position={[-2, 3, 0.1]}>
-          {/* Main Frame */}
-          <Box 
-            args={[3.2, 2.2, 0.1]} 
-            castShadow 
-            receiveShadow
-          >
-            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-          </Box>
-
-          {/* Painting Canvas */}
-          <Box 
-            args={[3, 2, 0.05]} 
-            position={[0, 0, 0.05]}
-            castShadow
-          >
-            <meshStandardMaterial
-              map={new THREE.TextureLoader().load('/starry-night.jpg')}
-              roughness={0.5}
-              metalness={0.1}
-            />
-          </Box>
-
-          {/* Frame Details */}
-          {/* Top */}
-          <Box 
-            args={[3.4, 0.15, 0.15]} 
-            position={[0, 1.1, 0.05]}
-            castShadow
-          >
-            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-          </Box>
-          {/* Bottom */}
-          <Box 
-            args={[3.4, 0.15, 0.15]} 
-            position={[0, -1.1, 0.05]}
-            castShadow
-          >
-            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-          </Box>
-          {/* Left */}
-          <Box 
-            args={[0.15, 2.4, 0.15]} 
-            position={[-1.6, 0, 0.05]}
-            castShadow
-          >
-            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-          </Box>
-          {/* Right */}
-          <Box 
-            args={[0.15, 2.4, 0.15]} 
-            position={[1.6, 0, 0.05]}
-            castShadow
-          >
-            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-          </Box>
-        </group>
-
-        {/* Mona Lisa Painting Frame */}
-        <group position={[2, 3, 0.1]}>
-          {/* Main Frame */}
-          <Box 
-            args={[2.2, 3.2, 0.1]} 
-            castShadow 
-            receiveShadow
-          >
-            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-          </Box>
-
-          {/* Painting Canvas */}
-          <Box 
-            args={[2, 3, 0.05]} 
-            position={[0, 0, 0.05]}
-            castShadow
-          >
-            <meshStandardMaterial
-              map={new THREE.TextureLoader().load('/mona-lisa.jpg')}
-              roughness={0.5}
-              metalness={0.1}
-            />
-          </Box>
-
-          {/* Frame Details */}
-          {/* Top */}
-          <Box 
-            args={[2.4, 0.15, 0.15]} 
-            position={[0, 1.6, 0.05]}
-            castShadow
-          >
-            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-          </Box>
-          {/* Bottom */}
-          <Box 
-            args={[2.4, 0.15, 0.15]} 
-            position={[0, -1.6, 0.05]}
-            castShadow
-          >
-            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-          </Box>
-          {/* Left */}
-          <Box 
-            args={[0.15, 3.4, 0.15]} 
-            position={[-1.1, 0, 0.05]}
-            castShadow
-          >
-            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-          </Box>
-          {/* Right */}
-          <Box 
-            args={[0.15, 3.4, 0.15]} 
-            position={[1.1, 0, 0.05]}
-            castShadow
-          >
-            <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
-          </Box>
-        </group>
-
-        {/* Additional spot lights for the paintings */}
+        {/* Spotlights for Logo */}
         <spotLight
-          position={[-2, 4, -6]}
-          angle={Math.PI / 6}
-          penumbra={0.5}
-          intensity={1.2}
-          target-position={[-2, 3, -7.9]}
-          castShadow
-        />
-        <spotLight
-          position={[2, 4, -6]}
-          angle={Math.PI / 6}
-          penumbra={0.5}
-          intensity={1.2}
-          target-position={[2, 3, -7.9]}
-          castShadow
-        />
-
-        {/* Additional spotlight for the logo */}
-        <spotLight
-          position={[4.5, 4, -6]}
+          position={[-2, 4.8, -6]}
           angle={Math.PI / 6}
           penumbra={0.5}
           intensity={1}
-          target-position={[4.5, 3.5, -7.9]}
+          target-position={[0, 3.5, -7.9]}
+          castShadow
+        />
+        <spotLight
+          position={[2, 4.8, -6]}
+          angle={Math.PI / 6}
+          penumbra={0.5}
+          intensity={1}
+          target-position={[0, 3.5, -7.9]}
           castShadow
         />
       </group>
