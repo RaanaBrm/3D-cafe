@@ -1,9 +1,44 @@
 import { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { Box, Plane, Cylinder } from '@react-three/drei'
+import { Box, Plane, Cylinder, useGLTF } from '@react-three/drei'
 import { Interactive, useXR } from '@react-three/xr'
 import * as THREE from 'three'
 import WoodenDiningSet from './WoodenDiningSet'
+
+function WomanModel1({ position = [0, 0, 0], rotation = [0, 0, 0], scale = 1 }) {
+  const { scene } = useGLTF('/models/woman_dress_2.glb')
+  
+  // Log when the model loads
+  console.log('Woman model loaded:', scene)
+  
+  return (
+    <primitive 
+      object={scene} 
+      position={position}
+      rotation={rotation}
+      scale={scale}
+      castShadow
+      receiveShadow
+    />
+  )
+}
+
+function WomanModel2({ position = [0, 0, 0], rotation = [0, 0, 0], scale = 1 }) {
+  const { scene } = useGLTF('/models/woman_dress_2.glb')
+  return (
+    <primitive 
+      object={scene.clone()} 
+      position={position}
+      rotation={rotation}
+      scale={scale}
+      castShadow
+      receiveShadow
+    />
+  )
+}
+
+// Preload the model
+useGLTF.preload('/models/woman_dress_2.glb')
 
 // Colors
 const COLORS = {
@@ -98,6 +133,13 @@ export default function CafeScene() {
         />
       </InteractiveObject>
 
+      {/* First Woman Model */}
+      <WomanModel1 
+        position={[-2.2, 0, -3.8]} 
+        rotation={[0, Math.PI * 1.5, 0]}
+        scale={0.0008}
+      />
+
       {/* Second Dining Set - Back Right */}
       <InteractiveObject objectId="dining-set-2">
         <WoodenDiningSet
@@ -108,6 +150,20 @@ export default function CafeScene() {
           onSelect={() => handleSelect('dining-set-2')}
         />
       </InteractiveObject>
+
+      {/* First Woman Model */}
+      <WomanModel1 
+        position={[-2.2, 0, -3.8]} 
+        rotation={[0, Math.PI * 1.5, 0]}
+        scale={0.0008}
+      />
+
+      {/* Second Woman Model */}
+      <WomanModel2 
+        position={[4.8, 0, -0.8]} 
+        rotation={[0, Math.PI * 1.5, 0]}
+        scale={0.0008}
+      />
 
       {/* Third Dining Set - Front Left */}
       <InteractiveObject objectId="dining-set-3">

@@ -1,36 +1,23 @@
-# 3D Interactive Cafe Scene
+# Immersive Virtual Cafe
 
-A beautiful and interactive 3D cafe scene built with React Three Fiber, featuring detailed furniture, ambient lighting, and interactive elements.
-
-![Cafe Scene Preview](preview.png)
+A virtual reality cafe experience built with React Three Fiber and WebXR, featuring an artistic atmosphere with famous paintings and modern dining sets.
 
 ## Features
 
-- **Detailed 3D Environment**
-  - Two elegant round tables with coffee cups and rose vases
-  - Comfortable chairs with proper spacing and positioning
-  - Wall-mounted shelf with decorative books and plants
-  - Art Gallery Wall featuring:
-    - Van Gogh's "Starry Night" painting
-    - Mona Lisa with custom frame
-  - Decorative wall sconces with warm lighting
-  - Large potted plant with dynamic leaves
-  - Croissant plate and table settings
+- Interactive 3D environment with VR support
+- Four modern dining sets arranged in a 2x2 grid layout
+- Artistic wall decorations featuring Van Gogh's Starry Night and the Mona Lisa
+- Ambient lighting with wall sconces and spotlights
+- Wall-mounted bookshelf with decorative books
+- Interactive elements with hover and selection effects in VR mode
 
-- **Interactive Elements**
-  - Hover effects on furniture
-  - VR-ready interactions
-  - Dynamic lighting and shadows
-  - Realistic materials and textures
-  - Interactive objects with VR controller support
-
-## Technologies Used
+## Technical Stack
 
 - React
-- React Three Fiber (@react-three/fiber)
 - Three.js
-- @react-three/drei
-- @react-three/xr
+- React Three Fiber
+- WebXR
+- TypeScript
 
 ## Getting Started
 
@@ -38,13 +25,14 @@ A beautiful and interactive 3D cafe scene built with React Three Fiber, featurin
 
 - Node.js (v14 or higher)
 - npm or yarn
+- A WebXR-compatible browser and VR headset for VR features
 
 ### Installation
 
 1. Clone the repository:
 ```bash
 git clone [repository-url]
-cd cafe
+cd Cafe
 ```
 
 2. Install dependencies:
@@ -61,55 +49,51 @@ npm run dev
 yarn dev
 ```
 
-4. Open your browser and navigate to `http://localhost:5173`
+4. Open your browser and navigate to `http://localhost:5173` (or the URL shown in your terminal)
 
-## Scene Controls
+## VR Mode
 
-- **Mouse/Touch:**
-  - Drag to rotate the scene
-  - Scroll/Pinch to zoom
-  - Right-click drag to pan
+To experience the cafe in VR:
+1. Use a WebXR-compatible browser (like Chrome or Firefox)
+2. Connect your VR headset
+3. Click the "Enter VR" button in the application
 
-- **VR Mode (if available):**
+## Scene Layout
+
+The virtual cafe features:
+- A 2x2 grid of dining sets with comfortable spacing
+- Wall-mounted artwork:
+  - Starry Night by Van Gogh
+  - Mona Lisa by Leonardo da Vinci
+- Decorative wall sconces with warm lighting
+- A bookshelf with interactive books
+- Ambient and spot lighting for atmosphere
+
+## Controls
+
+- **Desktop Mode:**
+  - Mouse to look around
+  - Click to interact with objects
+
+- **VR Mode:**
   - Use VR controllers to interact with objects
-  - Teleport navigation
-  - Object selection and interaction
+  - Point and select to interact with dining sets
+  - Natural head movement for looking around
 
-## Project Structure
+## Development
 
-```
-cafe/
-├── src/
-│   ├── components/
-│   │   └── CafeScene.tsx    # Main scene component
-│   ├── assets/
-│   │   ├── textures/        # Texture files
-│   │   └── models/          # 3D model files
-│   └── App.tsx              # Root component
-├── public/
-│   └── books/              # Book cover textures
-└── package.json
-```
+The project uses TypeScript for type safety and better development experience. Key components:
 
-## Customization
-
-The scene can be customized by modifying the following:
-
-- Colors: Edit the `COLORS` object in `CafeScene.tsx`
-- Furniture positions: Adjust position values in the component
-- Lighting: Modify light intensities and positions
-- Textures: Add or replace textures in the public folder
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+- `CafeScene.tsx`: Main scene component
+- `WoodenDiningSet.tsx`: Dining set component
+- Various helper components for lighting and decorations
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+[Your chosen license]
 
 ## Acknowledgments
 
-- Textures and inspiration from various sources
-- React Three Fiber community
-- Three.js documentation and examples 
+- 3D Models from [appropriate credits]
+- Artwork textures used with appropriate permissions
+- React Three Fiber and Three.js communities 
