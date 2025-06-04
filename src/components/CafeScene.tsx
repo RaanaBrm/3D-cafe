@@ -115,10 +115,13 @@ export default function CafeScene() {
         receiveShadow
       >
         <meshStandardMaterial
-          color={COLORS.FLOOR}
+          map={new THREE.TextureLoader().load('/floor.jpg', (texture) => {
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set(6, 6); // Adjust this value to control texture tiling
+          })}
           roughness={0.8}
           metalness={0.2}
-          toneMapped={false}
+          side={THREE.DoubleSide}
         />
       </Plane>
 
@@ -198,6 +201,68 @@ export default function CafeScene() {
           >
             <meshStandardMaterial color={COLORS.WHITE} roughness={0.6} metalness={0.1} />
           </Box>
+
+          {/* Logo above the shelf */}
+          <group position={[0, 1.5, 0.1]}>
+            {/* Logo Frame */}
+            <Box 
+              args={[1.6, 0.8, 0.1]} 
+              castShadow 
+              receiveShadow
+            >
+              <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+            </Box>
+
+            {/* Logo Canvas */}
+            <Box 
+              args={[1.4, 0.6, 0.05]} 
+              position={[0, 0, 0.05]}
+              castShadow
+            >
+              <meshStandardMaterial
+                map={new THREE.TextureLoader().load('/logo.png')}
+                transparent={true}
+                roughness={0.2}
+                metalness={0.1}
+                alphaTest={0.5}
+                side={THREE.DoubleSide}
+              />
+            </Box>
+
+            {/* Frame Details */}
+            {/* Top */}
+            <Box 
+              args={[1.8, 0.12, 0.15]} 
+              position={[0, 0.4, 0.05]}
+              castShadow
+            >
+              <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+            </Box>
+            {/* Bottom */}
+            <Box 
+              args={[1.8, 0.12, 0.15]} 
+              position={[0, -0.4, 0.05]}
+              castShadow
+            >
+              <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+            </Box>
+            {/* Left */}
+            <Box 
+              args={[0.12, 1, 0.15]} 
+              position={[-0.8, 0, 0.05]}
+              castShadow
+            >
+              <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+            </Box>
+            {/* Right */}
+            <Box 
+              args={[0.12, 1, 0.15]} 
+              position={[0.8, 0, 0.05]}
+              castShadow
+            >
+              <meshStandardMaterial color={COLORS.FRAME_COLOR} roughness={0.7} />
+            </Box>
+          </group>
 
           {/* Shelf supports */}
           {[-0.8, 0.8].map((x, index) => (
@@ -295,7 +360,12 @@ export default function CafeScene() {
           position={[0, 3, 0]}
           receiveShadow
         >
-          <meshStandardMaterial color={COLORS.WALL_COLOR} />
+          <meshStandardMaterial 
+            map={new THREE.TextureLoader().load('/wall.jpg')}
+            roughness={0.8}
+            metalness={0.1}
+            side={THREE.DoubleSide}
+          />
         </Box>
 
         {/* Wall Sconces */}
@@ -493,6 +563,16 @@ export default function CafeScene() {
           penumbra={0.5}
           intensity={1.2}
           target-position={[2, 3, -7.9]}
+          castShadow
+        />
+
+        {/* Additional spotlight for the logo */}
+        <spotLight
+          position={[4.5, 4, -6]}
+          angle={Math.PI / 6}
+          penumbra={0.5}
+          intensity={1}
+          target-position={[4.5, 3.5, -7.9]}
           castShadow
         />
       </group>
