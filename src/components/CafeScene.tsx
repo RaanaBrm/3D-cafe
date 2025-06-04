@@ -40,6 +40,47 @@ function WomanModel2({ position = [0, 0, 0], rotation = [0, 0, 0], scale = 1 }) 
 // Preload the model
 useGLTF.preload('/models/woman_dress_2.glb')
 
+// Door Model Component
+interface DoorProps {
+  position?: [number, number, number]
+  rotation?: [number, number, number]
+  isOpen: boolean
+  onToggle: () => void
+}
+
+function Door({ position = [0, 0, 0], rotation = [0, 0, 0], isOpen, onToggle }: DoorProps) {
+  const { scene } = useGLTF('/door.glb')
+  const doorRef = useRef<THREE.Group>()
+
+  useFrame(() => {
+    if (doorRef.current) {
+      const targetRotation = isOpen ? Math.PI / 2 : 0
+      doorRef.current.rotation.y = THREE.MathUtils.lerp(
+        doorRef.current.rotation.y,
+        targetRotation,
+        0.1
+      )
+    }
+  })
+
+  return (
+    <Interactive onSelect={onToggle}>
+      <primitive
+        ref={doorRef}
+        object={scene}
+        position={position}
+        rotation={rotation}
+        scale={[0.0015, 0.0015, 0.0015]} // Adjusted scale to match scene proportions
+        castShadow
+        receiveShadow
+      />
+    </Interactive>
+  )
+}
+
+// Preload door model
+useGLTF.preload('/door.glb')
+
 // Colors
 const COLORS = {
   DARK_BROWN: '#4A3728', // Darker brown for table
@@ -351,6 +392,49 @@ export default function CafeScene() {
           </Box>
         </group>
       </InteractiveObject>
+
+      {/* Walls */}
+      {/* Left Wall */}
+      <Box
+        args={[0.1, 6, 16]}
+        position={[-8, 3, 0]}
+        receiveShadow
+      >
+        <meshStandardMaterial
+          map={new THREE.TextureLoader().load('/wall.jpg')}
+          roughness={0.8}
+          metalness={0.1}
+          side={THREE.DoubleSide}
+        />
+      </Box>
+
+      {/* Right Wall */}
+      <Box
+        args={[0.1, 6, 16]}
+        position={[8, 3, 0]}
+        receiveShadow
+      >
+        <meshStandardMaterial
+          map={new THREE.TextureLoader().load('/wall.jpg')}
+          roughness={0.8}
+          metalness={0.1}
+          side={THREE.DoubleSide}
+        />
+      </Box>
+
+      {/* Back Wall */}
+      <Box 
+        args={[16, 6, 0.1]} 
+        position={[0, 3, -8]}
+        receiveShadow
+      >
+        <meshStandardMaterial
+          map={new THREE.TextureLoader().load('/wall.jpg')}
+          roughness={0.8}
+          metalness={0.1}
+          side={THREE.DoubleSide}
+        />
+      </Box>
 
       {/* Back Wall with Painting */}
       <group position={[0, 0, -8]}>
