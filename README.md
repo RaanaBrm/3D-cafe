@@ -1,70 +1,39 @@
-# Immersive Virtual Cafe
+# Immersive VR Café
 
-A virtual reality cafe experience built with React Three Fiber and WebXR, featuring an artistic atmosphere with famous paintings, realistic character models, modern dining sets, and interactive VR elements.
+A virtual reality café experience built with React Three Fiber and WebXR, featuring an elegant interior design with interactive furniture, artwork, and character models.
 
-## Features
+## 🌟 Features
 
-### Environment
-- Fully immersive 3D environment with WebXR VR support
-- Four elegant wooden dining sets arranged in a 2x2 grid layout
-- Realistic character models featuring well-dressed women
-- Artistic wall decorations:
-  - Mona Lisa by Leonardo da Vinci (left wall)
-  - Starry Night by Van Gogh (right wall)
-  - Custom cafe logo (back wall)
+- **VR Support**: Full VR compatibility using WebXR
+- **Interactive Environment**:
+  - Movable dining sets in VR mode
+  - Realistic lighting with wall sconces
+  - Marble flooring and elegant wall design
+- **Art Gallery**:
+  - Mona Lisa on the left wall
+  - Starry Night on the right wall
+  - Custom café logo on the back wall
+- **Realistic Elements**:
+  - Four wooden dining sets
+  - Two character models
+  - Ambient lighting with wall sconces
+  - Custom wall decorations
 
-### Interactive VR Features
-- Pick up and move dining sets in VR mode
-- Natural object rotation with controller movements
-- Visual feedback system:
-  - Green circular indicators under interactive objects
-  - Yellow grab points for pickable objects
-  - Hover animations with gentle floating effect
-- Smart object handling:
-  - Smooth return to original position when released
-  - Physics-based movements with natural transitions
-  - Paintings can be selected but not moved
-
-### Lighting System
-- Decorative wall sconces with warm lighting
-- Strategic spotlights for artwork
-- Ambient lighting for natural atmosphere
-- Realistic shadows and lighting effects
-
-## VR Controls
-
-### Basic Controls
-- Point at objects to see hover effects
-- Pull trigger while pointing to grab objects
-- Move controller to position objects
-- Rotate controller to rotate held objects
-- Release trigger to drop objects (they smoothly return to original position)
-
-### Interaction Types
-- **Dining Sets**: Fully interactive (grab, move, rotate)
-- **Paintings**: Interactive but fixed (can select, cannot move)
-- **Characters**: Non-interactive, decorative elements
-
-## Technical Stack
+## 🔧 Technical Stack
 
 - React
 - Three.js
-- React Three Fiber (@react-three/fiber)
-- WebXR (@react-three/xr)
+- React Three Fiber
+- WebXR
 - TypeScript
-- Drei (@react-three/drei)
 
-## Getting Started
-
-### Prerequisites
+## 📋 Prerequisites
 
 - Node.js (v14 or higher)
-- npm or yarn
 - A WebXR-compatible browser
-- VR headset for VR features
-- HTTPS setup for WebXR functionality
+- A VR headset (for VR mode)
 
-### Installation
+## 🚀 Installation
 
 1. Clone the repository:
 ```bash
@@ -75,80 +44,83 @@ cd Cafe
 2. Install dependencies:
 ```bash
 npm install
-# or
-yarn install
 ```
 
-3. Set up HTTPS certificates:
-- Generate SSL certificates (key.pem and cert.pem)
-- Place them in the project root directory
-
-4. Start the development server:
+3. Start the development server:
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-5. Open your browser and navigate to `https://localhost:5173` (note: HTTPS is required for WebXR)
+4. Open your browser and navigate to `http://localhost:5173`
 
-## Development Guide
+## 💻 Usage
 
-### Project Structure
+### Desktop Mode
+- Use your mouse to look around
+- Click the "Enter VR" button to switch to VR mode
+
+### VR Mode
+- Use VR controllers to interact with objects
+- Point at dining sets to highlight them
+- Grab and move dining sets
+- Explore the space in full virtual reality
+
+## 🎮 Controls
+
+### Desktop
+- **Mouse**: Look around
+- **Click**: Select objects
+- **VR Button**: Enter VR mode
+
+### VR Controllers
+- **Trigger**: Select/Grab objects
+- **Grip**: Move objects
+- **Thumbstick**: Teleport (if supported)
+
+## 🏗️ Project Structure
+
 ```
-src/
-  ├── components/
-  │   ├── CafeScene.tsx       # Main scene composition
-  │   ├── InteractiveObject.tsx # VR interaction handling
-  │   ├── WoodenDiningSet.tsx # Furniture component
-  │   └── SimpleController.tsx # VR controller visualization
-  ├── App.tsx                 # Main application setup
-  └── assets/                 # Textures and models
+Cafe/
+├── src/
+│   ├── components/
+│   │   ├── CafeScene.tsx      # Main café environment
+│   │   ├── WoodenDiningSet.tsx # Dining set model
+│   │   ├── InteractiveObject.tsx # Interactive object wrapper
+│   │   └── SimpleController.tsx  # VR controller
+│   ├── App.tsx                # Main application
+│   └── main.tsx              # Entry point
+├── public/
+│   ├── models/               # 3D models
+│   ├── textures/            # Textures
+│   └── images/              # Images
+└── package.json
 ```
 
-### Key Components
+## 🎨 Scene Details
 
-#### InteractiveObject
-Handles all VR interactions including:
-- Object pickup and movement
-- Rotation handling
-- Visual feedback
-- Position animation
-- Return-to-origin behavior
+- **Room Dimensions**: Large open space with high ceilings
+- **Lighting**: Ambient lighting with accent wall sconces
+- **Artwork**: 
+  - Left Wall: Mona Lisa with two sconces
+  - Right Wall: Starry Night with two sconces
+  - Back Wall: Café logo with two sconces
+- **Furniture**: 
+  - 4 wooden dining sets
+  - Each set includes a table and chairs
+- **Characters**:
+  - Two character models positioned near right-side tables
 
-#### CafeScene
-Manages the overall scene including:
-- Object placement and organization
-- Lighting setup
-- Wall decorations
-- Character positioning
+## 🤝 Contributing
 
-## Scene Layout
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-The virtual cafe features:
-- A spacious room with textured walls and floor
-- Four interactive dining areas with wooden dining sets
-- Realistic character models positioned naturally
-- Wall-mounted artwork with dedicated lighting
-- Decorative wall sconces providing warm ambient lighting
+## 📝 License
 
-## Assets Credits
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-- Woman character model: "woman_dress_2.glb"
-- Wooden dining set model
-- Artwork textures:
-  - Mona Lisa
-  - Starry Night
-- Floor and wall textures
-- Custom cafe logo
+## 🙏 Acknowledgments
 
-## License
-
-[Your chosen license]
-
-## Acknowledgments
-
-- 3D Models from [appropriate credits]
-- Artwork textures used with appropriate permissions
-- React Three Fiber and Three.js communities
-- WebXR contributors 
+- Three.js community
+- React Three Fiber team
+- WebXR contributors
+- Model and texture creators 

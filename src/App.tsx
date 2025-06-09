@@ -11,7 +11,7 @@ function VREnvironment() {
   return (
     <>
       <color attach="background" args={['#808080']} />
-      <fog attach="fog" args={['#808080', 10, 20]} />
+      <fog attach="fog" args={['#808080', 15, 30]} />
       <Suspense fallback={null}>
         <CafeScene />
         {isPresenting && (
@@ -38,8 +38,8 @@ export default function App() {
       <div style={{ width: '100vw', height: '100vh' }}>
         <Canvas
           camera={{ 
-            position: [0, 1.6, 3],
-            fov: 50,
+            position: [0, 1.7, 4],
+            fov: 75,
             near: 0.1,
             far: 1000
           }}
@@ -60,7 +60,7 @@ export default function App() {
           }}
         >
           <XR
-            referenceSpace="local"
+            referenceSpace="local-floor"
           >
             <VREnvironment />
           </XR>
