@@ -4,6 +4,7 @@ import { Box, Plane, Cylinder, useGLTF } from '@react-three/drei'
 import { Interactive, useXR } from '@react-three/xr'
 import * as THREE from 'three'
 import WoodenDiningSet from './WoodenDiningSet'
+import InteractiveObject from './InteractiveObject'
 
 function WomanModel1({ position = [0, 0, 0], rotation = [0, 0, 0], scale = 1 }) {
   const { scene } = useGLTF('/models/woman_dress_2.glb')
@@ -136,16 +137,6 @@ export default function CafeScene() {
     setHoveredObject(isHovered ? objectId : null)
   }
 
-  const InteractiveObject = ({ children, objectId }: { children: React.ReactNode, objectId: string }) => (
-    <Interactive 
-      onSelect={() => handleSelect(objectId)}
-      onHover={() => handleHover(objectId, true)}
-      onBlur={() => handleHover(objectId, false)}
-    >
-      {children}
-    </Interactive>
-  )
-
   return (
     <group ref={groupRef}>
       {/* Floor */}
@@ -167,13 +158,16 @@ export default function CafeScene() {
       </Plane>
 
       {/* First Dining Set - Back Left */}
-      <InteractiveObject objectId="dining-set-1">
+      <InteractiveObject
+        objectId="dining-set-1"
+        position={[-3.5, 0, -4]}
+        onHover={(isHovered) => handleHover('dining-set-1', isHovered)}
+        onSelect={() => handleSelect('dining-set-1')}
+      >
         <WoodenDiningSet
-          position={[-3.5, 0, -4]}
+          position={[0, 0, 0]}
           rotation={[0, 0, 0]}
           scale={0.0015}
-          onHover={(isHovered) => setHoveredObject(isHovered ? 'dining-set-1' : null)}
-          onSelect={() => handleSelect('dining-set-1')}
         />
       </InteractiveObject>
 
@@ -185,22 +179,18 @@ export default function CafeScene() {
       />
 
       {/* Second Dining Set - Back Right */}
-      <InteractiveObject objectId="dining-set-2">
+      <InteractiveObject
+        objectId="dining-set-2"
+        position={[3.5, 0, -4]}
+        onHover={(isHovered) => handleHover('dining-set-2', isHovered)}
+        onSelect={() => handleSelect('dining-set-2')}
+      >
         <WoodenDiningSet
-          position={[3.5, 0, -4]}
+          position={[0, 0, 0]}
           rotation={[0, 0, 0]}
           scale={0.0015}
-          onHover={(isHovered) => setHoveredObject(isHovered ? 'dining-set-2' : null)}
-          onSelect={() => handleSelect('dining-set-2')}
         />
       </InteractiveObject>
-
-      {/* First Woman Model */}
-      <WomanModel1 
-        position={[-2.2, 0, -3.8]} 
-        rotation={[0, Math.PI * 1.5, 0]}
-        scale={0.0008}
-      />
 
       {/* Second Woman Model */}
       <WomanModel2 
@@ -210,24 +200,30 @@ export default function CafeScene() {
       />
 
       {/* Third Dining Set - Front Left */}
-      <InteractiveObject objectId="dining-set-3">
+      <InteractiveObject
+        objectId="dining-set-3"
+        position={[-3.5, 0, -1]}
+        onHover={(isHovered) => handleHover('dining-set-3', isHovered)}
+        onSelect={() => handleSelect('dining-set-3')}
+      >
         <WoodenDiningSet
-          position={[-3.5, 0, -1]}
+          position={[0, 0, 0]}
           rotation={[0, 0, 0]}
           scale={0.0015}
-          onHover={(isHovered) => setHoveredObject(isHovered ? 'dining-set-3' : null)}
-          onSelect={() => handleSelect('dining-set-3')}
         />
       </InteractiveObject>
 
       {/* Fourth Dining Set - Front Right */}
-      <InteractiveObject objectId="dining-set-4">
+      <InteractiveObject
+        objectId="dining-set-4"
+        position={[3.5, 0, -1]}
+        onHover={(isHovered) => handleHover('dining-set-4', isHovered)}
+        onSelect={() => handleSelect('dining-set-4')}
+      >
         <WoodenDiningSet
-          position={[3.5, 0, -1]}
+          position={[0, 0, 0]}
           rotation={[0, 0, 0]}
           scale={0.0015}
-          onHover={(isHovered) => setHoveredObject(isHovered ? 'dining-set-4' : null)}
-          onSelect={() => handleSelect('dining-set-4')}
         />
       </InteractiveObject>
 
@@ -247,7 +243,13 @@ export default function CafeScene() {
       </Box>
 
       {/* Mona Lisa on Left Wall */}
-      <group position={[-7.9, 3, 0]}>
+      <InteractiveObject
+        objectId="mona-lisa"
+        position={[-7.9, 3, 0]}
+        canPickup={false}
+        onHover={(isHovered) => handleHover('mona-lisa', isHovered)}
+        onSelect={() => handleSelect('mona-lisa')}
+      >
         {/* Main Frame */}
         <Box 
           args={[0.1, 3.2, 2.2]} 
@@ -340,7 +342,7 @@ export default function CafeScene() {
           target-position={[0, 0, 0]}
           castShadow
         />
-      </group>
+      </InteractiveObject>
 
       {/* Right Wall */}
       <Box
@@ -357,7 +359,13 @@ export default function CafeScene() {
       </Box>
 
       {/* Starry Night on Right Wall */}
-      <group position={[7.9, 3, 0]}>
+      <InteractiveObject
+        objectId="starry-night"
+        position={[7.9, 3, 0]}
+        canPickup={false}
+        onHover={(isHovered) => handleHover('starry-night', isHovered)}
+        onSelect={() => handleSelect('starry-night')}
+      >
         {/* Main Frame */}
         <Box 
           args={[0.1, 2.2, 3.2]} 
@@ -450,7 +458,7 @@ export default function CafeScene() {
           target-position={[0, 0, 0]}
           castShadow
         />
-      </group>
+      </InteractiveObject>
 
       {/* Back Wall */}
       <Box 
